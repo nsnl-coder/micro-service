@@ -1,0 +1,64 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./7.infra/k8s/*
+
+build:
+  local:
+    push: false # disable pushing code to docker hub
+  artifacts:
+    - image: nsnhatlong/client
+      context: 6.client # the folder thats we watch for
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual: # watching for all js file changes in src folder
+          - src: 'src/**/*.js'
+            dest: .
+
+    - image: nsnhatlong/comments
+      context: 2.comments # the folder thats we watch for
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual: # watching for all js file changes in src folder
+          - src: '*.js'
+            dest: .
+
+    - image: nsnhatlong/event-bus
+      context: 3.event-bus # the folder thats we watch for
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual: # watching for all js file changes in src folder
+          - src: '*.js'
+            dest: .
+
+    - image: nsnhatlong/moderation
+      context: 5.moderation # the folder thats we watch for
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual: # watching for all js file changes in src folder
+          - src: '*.js'
+            dest: .
+
+    - image: nsnhatlong/posts
+      context: 1.posts # the folder thats we watch for
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual: # watching for all js file changes in src folder
+          - src: '*.js'
+            dest: .
+
+    - image: nsnhatlong/query
+      context: 4.query # the folder thats we watch for
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual: # watching for all js file changes in src folder
+          - src: '*.js'
+            dest: .

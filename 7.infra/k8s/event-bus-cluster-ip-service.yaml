@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: event-bus-cluster-ip-service # where other service refer to
+
+spec:
+  type: ClusterIP
+  selector:
+    app: event-bus
+  ports:
+    - name: event-bus
+      protocol: TCP
+      port: 4005 # service port
+      targetPort: 4005 # internal exposed container port (pods)

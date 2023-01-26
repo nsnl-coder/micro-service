@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: comments-deployment
+
+spec:
+  replicas: 1 # number of pods
+  selector:
+    matchLabels:
+      app: comments
+
+  # post template
+  template:
+    metadata:
+      labels:
+        app: comments
+    spec:
+      containers:
+        - name: comments
+          image: nsnhatlong/comments

@@ -14,7 +14,7 @@ app.get('/posts', (req, res, next) => {
   res.send(posts);
 });
 
-app.post('/posts', async (req, res, next) => {
+app.post('/posts/create', async (req, res, next) => {
   const id = randomBytes(4).toString('hex');
   const { title } = req.body;
 
@@ -23,13 +23,13 @@ app.post('/posts', async (req, res, next) => {
     title,
   };
   try {
-    await axios.post('http://localhost:4005/events', {
+    await axios.post('http://event-bus-cluster-ip-service:4005/events', {
       type: 'postCreated',
       data: { id, title },
     });
   } catch (err) {}
 
-  return res.status(201).send(posts[id]);
+  res.status(201).send(posts[id]);
 });
 
 app.post('/events', (req, res, next) => {
@@ -38,5 +38,6 @@ app.post('/events', (req, res, next) => {
 });
 
 app.listen(4000, () => {
+  console.log('jajajaj');
   console.log('listening on port 4000');
 });

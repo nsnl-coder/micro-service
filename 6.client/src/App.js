@@ -5,7 +5,7 @@ import PostList from './PostList';
 const App = () => {
   return (
     <div className="container">
-      <h1>Create post</h1>
+      <h1>Creat long</h1>
       <PostCreate />
       <hr />
       <PostList />

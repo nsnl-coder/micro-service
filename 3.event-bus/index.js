@@ -12,19 +12,21 @@ app.post('/events', async (req, res, next) => {
   events.push(event);
 
   try {
-    await axios.post('http://localhost:4000/events', event);
+    await axios.post('http://posts-cluster-ip-service:4000/events', event);
   } catch (err) {}
 
   try {
-    await axios.post('http://localhost:4001/events', event);
+    await axios.post('http://comments-cluster-ip-service:4001/events', event);
   } catch (err) {}
 
   try {
-    await axios.post('http://localhost:4002/events', event);
+    await axios.post('http://query-cluster-ip-service:4002/events', event);
   } catch (err) {}
   try {
-    await axios.post('http://localhost:4003/events', event);
+    await axios.post('http://moderation-cluster-ip-service:4003/events', event);
   } catch (err) {}
+
+  res.status(200).json('success');
 });
 
 app.get('/events', (req, res, next) => {

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: moderation-deployment
+
+spec:
+  replicas: 1 # number of pods
+  selector:
+    matchLabels:
+      app: moderation
+
+  # post template
+  template:
+    metadata:
+      labels:
+        app: moderation
+    spec:
+      containers:
+        - name: moderation
+          image: nsnhatlong/moderation

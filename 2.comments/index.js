@@ -32,11 +32,7 @@ app.post('/posts/:id/comments', async (req, res, next) => {
   comments[req.params.id] = oldComments;
 
   try {
-    await axios.post('http://localhost:4005/events', {
-      type: 'commentCreated',
-      data: newComment,
-    });
-    await axios.post('http://localhost:4003/events', {
+    await axios.post('http://event-bus-cluster-ip-service:4005/events', {
       type: 'commentCreated',
       data: newComment,
     });
@@ -59,7 +55,7 @@ app.post('/events', async (req, res, next) => {
     updatedComment.status = status;
 
     try {
-      await axios.post('http://localhost:4005/events', {
+      await axios.post('http://event-bus-cluster-ip-service:4005/events', {
         type: 'commentUpdated',
         data: {
           id,

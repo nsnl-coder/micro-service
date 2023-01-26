@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: posts-deployment
+
+spec:
+  replicas: 1 # number of pods
+  selector:
+    matchLabels:
+      app: posts
+
+  # post template
+  template:
+    metadata:
+      labels:
+        app: posts
+    spec:
+      containers:
+        - name: posts
+          image: nsnhatlong/posts:latest
